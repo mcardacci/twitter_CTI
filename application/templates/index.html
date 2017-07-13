@@ -1,0 +1,12 @@
+<!doctype html>
+<h1>
+    This is your index template
+</h1>
+<title>Hello from Flask</title>
+{% if stations%}
+    {% for st in stations %}
+        <p>station id:{{ st.id }} lat:{{ st.lat }} </p>
+    {% endfor %}
+{% else %}
+    <h1>Hello, World!</h1>
+{% endif %}

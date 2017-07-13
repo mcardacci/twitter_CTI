@@ -1,0 +1,48 @@
+
+Flask
+-------
+* app will run from 'if name == main' portion on bottom
+* python manage.py db init
+    # This will create a folder called migrations with alembic.ini 
+    # Also has  env.py files and a sub-folder migrations which will include your future migrations. 
+    # It has to be run only once.
+* python manage.py db migrate
+    # Generate new migrations in the 'migrations' folder
+    # The file is pre-filled based on the changes detected by alembic, 
+    # Edit the description message at the beginning of the file and make any change you want.
+* python manage.py db upgrade
+    # Implements the changes in the migration files in the database and updates the version of the migration in the alembic_version table.
+    
+    Querying through Flask
+    ======================
+    * <model>.query.all() -> a select all from the table (the model name)
+        # It returns an array of objects 
+        # Example: Station.query.all()[0].lat -> yields a number.
+
+
+Streamer
+--------
+* runs from 'experiment.py'
+* pulls in from 'config.json' for hashtags
+* 'on_data' function limits the number of tweets from 'self.tweet_limit' number
+*  
+
+Postgresql
+-----------
+* make sure postgresql service is on (for windows)
+* login with 'psql -U postgres'
+    # password: password
+* (For linux) sudo service postgresql start 
+    # sudo -su postgres
+    # psql
+    # The postgres password is 'password'
+* list all db's -> \list
+* connect to db -> \connect my_database
+* list all tables -> \d
+* insert statement -> INSERT INTO link (url, name) VALUES ('http://www.postgresqltutorial.com','PostgreSQL Tutorial');
+
+Virustotal
+------------
+* https://www.virustotal.com/latest-scan/<resource>
+    # This will output the scan of the sha-1, sha256, etc. from undetected_downloaded_samples
+    ## Still don't know how to decipher an exe from the other files
