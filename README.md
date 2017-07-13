@@ -1,2 +1,2 @@
 # twitter_CTI
-Cyber Threat Intelligence
+Cyber Threat Intelligence Tool Based on Twitter API
