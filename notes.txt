@@ -1,4 +1,22 @@
+## Consider the following example of 'json' type for 'indicators' ip, domain and dangerous_files fields. 
+    ** You're planning on outputting json virustotal data there.
+## Check here: https://realpython.com/blog/python/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/
 
+## 
+
+from app import db
+from sqlalchemy.dialects.postgresql import JSON
+
+
+class Result(db.Model):
+    __tablename__ = 'results'
+
+    id = db.Column(db.Integer, primary_key=True)
+    url = db.Column(db.String())
+    result_all = db.Column(JSON) 
+
+
+--------------------------------------------------------------------
 Flask
 -------
 * app will run from 'if name == main' portion on bottom
