@@ -8,7 +8,7 @@ class BaseModel(db.Model):
     __abstract__ = True
 
     def __init__(self, *args):
-        super().__init__(*args)
+        super(BaseModel, self).__init__(*args)
 
     def __repr__(self):
         """Define a base way to print models"""
@@ -22,13 +22,17 @@ class BaseModel(db.Model):
                 Define a base way to jsonify models, dealing with datetime objects
         """
         return {
-            column: value if not isihttp://docs.sqlalchemy.org/en/latest/core/connections.htmlnstance(value, datetime.date) else value.strftime('%Y-%m-%d')
+            column: value if not isinstance(value, datetime.date) else value.strftime('%Y-%m-%d')
             for column, value in self._to_dict().items()
         }
 
 
 class Tweets(BaseModel, db.Model):
-    """Model for the Tweet Metadata table"""
+    """
+    Model for the Tweet Metadata table
+    One tweet can have many security indicators
+    One to many relationship
+    """
     __tablename__ = 'tweets'
 
     id = db.Column(db.Integer, primary_key = True)
@@ -38,6 +42,14 @@ class Tweets(BaseModel, db.Model):
     text = db.Column(db.String(150))
     followers_count = db.Column(db.Integer)
     indicators = db.relationship('Indicators', backref='tweet', lazy='dynamic')
+
+    def __init__(self, url, username, created_at, text, followers_count):
+        self.url = url
+        self.username = username
+        self.created_at = created_at
+        self.text = text 
+        self.followers_count = followers_count
+
 
 class Indicators(BaseModel, db.Model):
     """
@@ -52,3 +64,11 @@ class Indicators(BaseModel, db.Model):
     domain = db.Column(db.String(60))
     dangerous_file = db.Column(db.String(60))
     tweet_id = db.Column(db.Integer, db.ForeignKey('tweets.id'))
+
+    def __init__(self, ip, domain, dangerous_file, tweet_id):
+        self.ip = ip
+        self.domain = domain
+        self.dangerous_file = dangerous_file
+        self.tweet_id = tweet_id
+
+        

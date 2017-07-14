@@ -3,9 +3,11 @@ sys.path.append(os.path.abspath(os.path.join('..')))
 
 from api_models import *
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 from models import db, Tweets, Indicators
 
 app = Flask(__name__)
+db  = SQLAlchemy(app)
 
 # DB config stuff
 POSTGRES = {
@@ -19,32 +21,64 @@ POSTGRES = {
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
 %(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
-db.init_app(app)
+# db.init_app(app)
 
 
-tweet_limit = 3
+# tweet_limit = 100
 
-#This handles Twitter authetification and the connection to Twitter Streaming API
-l = StdOutListener(tweet_limit) 
-auth = OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
-stream = Stream(auth, l)
+# # This handles Twitter authetification and the connection to Twitter Streaming API
+# l = StdOutListener(tweet_limit) 
+# auth = OAuthHandler(consumer_key, consumer_secret)
+# auth.set_access_token(access_token, access_token_secret)
+# stream = Stream(auth, l)
 
-#This filters Twitter Streams to capture data by the keywords from a config file (config.json)
+# #This filters Twitter Streams to capture data by the keywords from a config file (config.json)
     
-with open('config.json') as data_file:
-	data = json.load(data_file)
-	stream.filter(track=data["hashtags"])
+# with open('config.json') as data_file:
+# 	data = json.load(data_file)
+# 	stream.filter(track=data["hashtags"])
 
-# This uses Stream Structure (from StdOutListener object) to build DB
-print "\n ---------------\n"
-print l.stream_structure
+# # This uses Stream Structure (from StdOutListener object) to build DB
+# # print "\n ---------------\n"
+# # print l.stream_structure
 
 
-'''
-------------NOTES----------------------
-* This only prints the last tweet 'created_at'
-	print "\n ---------------\n"
-	print l.created_at
+# ss = l.stream_structure
 
-'''
+# for tweet_num in ss:
+# 	urls = str(ss[tweet_num]["urls"])
+# 	username = ss[tweet_num]["username"].encode("utf-8")
+# 	created_at = ss[tweet_num]["created_at"].encode("utf-8")
+# 	text = ss[tweet_num]["text"].encode("utf-8")
+# 	followers_count = int(ss[tweet_num]["followers_count"])
+
+# 	tweet = Tweets(urls, username, created_at, text, followers_count)
+# 	db.session.add(tweet)
+# 	db.session.commit()
+
+# test_tweet = Tweets('["http://asdf.com"]', 'asdf', '02/02/1111', 'zxcvcxv', '1324')
+# test_tweet2 = Tweets('["http://xcvc.com"]', 'zxcv', '02/02/66666', ';lkq', '754')
+# test_tweet3 = Tweets('["http://cvmq2o.com"]', 'define', '02/02/3333', 'eeeee', '000')
+# db.session.add(test_tweet)
+# db.session.add(test_tweet2)
+# db.session.add(test_tweet3)
+# db.session.commit()
+
+# indicator = Indicators('230.134.3.5', 'http://fu.io', 'evil file url here', test_tweet.id)
+# indicator2 = Indicators('222.222.22.2', 'http://kitty.io', 'evil file url here',test_tweet2.id)
+# indicator3 = Indicators('444.333.33.3', 'http://jerry.io', 'evil file url here',test_tweet2.id)
+
+# db.session.add(indicator)
+# db.session.add(indicator2)
+# db.session.add(indicator3)
+# db.session.commit()
+
+
+
+
+print "============================"	
+print "\nDatabase Seeded\n"
+print "============================"
+# test = Tweets('asdf', 'zxcv', 'dfgh', 'xnxbn', 43)
+# db.session.add(test)
+# db.session.commit()
