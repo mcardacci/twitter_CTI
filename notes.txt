@@ -55,7 +55,7 @@ Postgresql
     # psql
     # The postgres password is 'password'
 * list all db's -> \list
-* connect to db -> \connect my_database
+* connect to db -> \connect twitter_intelligence
 * list all tables -> \d
 * insert statement -> INSERT INTO link (url, name) VALUES ('http://www.postgresqltutorial.com','PostgreSQL Tutorial');
 
