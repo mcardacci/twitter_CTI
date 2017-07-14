@@ -59,6 +59,6 @@ class IP_Scanner_Model(object):
 
 
 # -------------TESTING-------------------------
-ip_scanner = IP_Scanner_Model('http://nypost.com/2017/07/14/trump-sues-over-property-taxes-at-his-florida-golf-course/')
+# ip_scanner = IP_Scanner_Model('http://nypost.com/2017/07/14/trump-sues-over-property-taxes-at-his-florida-golf-course/')
 # ip_scanner.ipaddress()
-ip_scanner.get_vt_scan()
+# ip_scanner.get_vt_scan()

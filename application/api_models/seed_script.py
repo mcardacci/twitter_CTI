@@ -2,6 +2,8 @@ import sys, os
 sys.path.append(os.path.abspath(os.path.join('..')))
 
 from api_models import *
+from Domain_Scanner_Model import *
+from IP_Scanner_Model import *
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from models import db, Tweets, Indicators
@@ -24,7 +26,8 @@ from models import db, Tweets, Indicators
 # #db.init_app(app)
 
 #------------------------------------------------------------
-
+# Streamer Seeding
+#-------------------------------------------------------------
 # tweet_limit = 3
 
 # # This handles Twitter authetification and the connection to Twitter Streaming API
@@ -52,7 +55,21 @@ from models import db, Tweets, Indicators
 # 	tweet = Tweets(urls, username, created_at, text, followers_count)
 	# db.session.add(tweet)
 	# db.session.commit()
+
 # --------------------------------------------------------------------------
+# Domain Scanner Model Seeding
+# --------------------------------------------------------------------------
+D = Domain_Scanner_Model('coderwall.com/p/pstm1w/deploying-a-flask-app-at-heroku') 
+D.domain_scanner()
+print D.domain_report_dictonary()
+
+#----------------------------------------------------------------------------
+# IP Scanner Model Seeding
+#-----------------------------------------------------------------------------
+ip_scanner = IP_Scanner_Model('http://nypost.com/2017/07/14/trump-sues-over-property-taxes-at-his-florida-golf-course/')
+ip_scanner.ipaddress()
+print ip_scanner.get_vt_scan()
+
 
 
 ##-> Exmaple of how to link Tweets to Indicators (one to many)<-
@@ -74,12 +91,12 @@ from models import db, Tweets, Indicators
 # db.session.add(indicator3)
 # db.session.commit()
 
+# test = Tweets('asdf', 'zxcv', 'dfgh', 'xnxbn', 43)
+# db.session.add(test)
+# db.session.commit()
 
 
 
 print "============================"	
 print "\nDatabase Seeded\n"
 print "============================"
-# test = Tweets('asdf', 'zxcv', 'dfgh', 'xnxbn', 43)
-# db.session.add(test)
-# db.session.commit()
