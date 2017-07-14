@@ -6,46 +6,41 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from models import db, Tweets, Indicators
 
-app = Flask(__name__)
-db  = SQLAlchemy(app)
+# app = Flask(__name__)
+# db  = SQLAlchemy(app)
 
-# DB config stuff
-POSTGRES = {
-    'user': 'postgres',
-    'pw': 'password',
-    'db': 'my_database',
-    'host': 'localhost',
-    'port': '5432',
-}
+# # DB config stuff
+# POSTGRES = {
+#     'user': 'postgres',
+#     'pw': 'password',
+#     'db': 'twitter_intelligence',
+#     'host': 'localhost',
+#     'port': '5432',
+# }
 
-app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
-%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
-# db.init_app(app)
+# app.config['DEBUG'] = True
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
+# %(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
+# #db.init_app(app)
 
+#------------------------------------------------------------
 
-tweet_limit = 3
+# tweet_limit = 3
 
-# This handles Twitter authetification and the connection to Twitter Streaming API
-l = StdOutListener(tweet_limit) 
-auth = OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
-stream = Stream(auth, l)
+# # This handles Twitter authetification and the connection to Twitter Streaming API
+# l = StdOutListener(tweet_limit) 
+# auth = OAuthHandler(consumer_key, consumer_secret)
+# auth.set_access_token(access_token, access_token_secret)
+# stream = Stream(auth, l)
 
-#This filters Twitter Streams to capture data by the keywords from a config file (config.json)
+# #This filters Twitter Streams to capture data by the keywords from a config file (config.json)
     
-with open('config.json') as data_file:
-	data = json.load(data_file)
-	stream.filter(track=data["hashtags"])
+# with open('config.json') as data_file:
+# 	data = json.load(data_file)
+# 	stream.filter(track=data["hashtags"])
 
-# This uses Stream Structure (from StdOutListener object) to build DB
-# print "\n ---------------\n"
-# print l.stream_structure
-
-
-ss = l.stream_structure
-print ss 
-
+# ss = l.stream_structure
+# print ss 
 
 # for tweet_num in ss:
 # 	urls = str(ss[tweet_num]["urls"])
@@ -57,6 +52,8 @@ print ss
 # 	tweet = Tweets(urls, username, created_at, text, followers_count)
 	# db.session.add(tweet)
 	# db.session.commit()
+# --------------------------------------------------------------------------
+
 
 ##-> Exmaple of how to link Tweets to Indicators (one to many)<-
 	## Look at last argument of indicators

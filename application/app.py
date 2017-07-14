@@ -9,7 +9,7 @@ app = Flask(__name__)
 POSTGRES = {
     'user': 'postgres',
     'pw': 'password',
-    'db': 'my_database',
+    'db': 'twitter_intelligence',
     'host': 'localhost',
     'port': '5432',
 }
@@ -20,20 +20,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
 db.init_app(app)
 
 @app.route('/')
-def index():
-	l = StdOutListener(3) 
-	auth = OAuthHandler(consumer_key, consumer_secret)
-	auth.set_access_token(access_token, access_token_secret)
-	stream = Stream(auth, l)
-
-    #This filters Twitter Streams to capture data by the keywords from a config file (config.json)
-    
-	with open('config.json') as data_file:
-		data = json.load(data_file)
-		stream.filter(track=data["hashtags"])
-        
-	stations = Station.query.all()
-	return render_template('index.html', stations=stations)
+def index():      
+	# stations = Station.query.all()
+	return render_template('index.html')
+		# , stations=stations)
 
 if __name__ == '__main__':
         app.run()
