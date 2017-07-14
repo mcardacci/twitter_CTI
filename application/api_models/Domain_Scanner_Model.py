@@ -22,7 +22,7 @@ class Domain_Scanner_Model(object):
         req = urllib2.Request(url, data)
         response = urllib2.urlopen(req)
 
-        print('Domain scanned successfully ')
+        # print('Domain scanned successfully ')
 
         #for URL scan report debugging only
         #print(response)  
@@ -66,9 +66,9 @@ class Domain_Scanner_Model(object):
         return formatted_domain_report
 
 # --------------TESTING--------------------------------
-D = Domain_Scanner_Model('coderwall.com/p/pstm1w/deploying-a-flask-app-at-heroku') 
-D.domain_scanner()
-D.domain_report_dictonary()
+# D = Domain_Scanner_Model('coderwall.com/p/pstm1w/deploying-a-flask-app-at-heroku') 
+# D.domain_scanner()
+# D.domain_report_dictonary()
         
 '''
  EXAMPLE RESPONSE:
