@@ -24,26 +24,28 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
 # db.init_app(app)
 
 
-# tweet_limit = 100
+tweet_limit = 3
 
-# # This handles Twitter authetification and the connection to Twitter Streaming API
-# l = StdOutListener(tweet_limit) 
-# auth = OAuthHandler(consumer_key, consumer_secret)
-# auth.set_access_token(access_token, access_token_secret)
-# stream = Stream(auth, l)
+# This handles Twitter authetification and the connection to Twitter Streaming API
+l = StdOutListener(tweet_limit) 
+auth = OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+stream = Stream(auth, l)
 
-# #This filters Twitter Streams to capture data by the keywords from a config file (config.json)
+#This filters Twitter Streams to capture data by the keywords from a config file (config.json)
     
-# with open('config.json') as data_file:
-# 	data = json.load(data_file)
-# 	stream.filter(track=data["hashtags"])
+with open('config.json') as data_file:
+	data = json.load(data_file)
+	stream.filter(track=data["hashtags"])
 
-# # This uses Stream Structure (from StdOutListener object) to build DB
-# # print "\n ---------------\n"
-# # print l.stream_structure
+# This uses Stream Structure (from StdOutListener object) to build DB
+# print "\n ---------------\n"
+# print l.stream_structure
 
 
-# ss = l.stream_structure
+ss = l.stream_structure
+print ss 
+
 
 # for tweet_num in ss:
 # 	urls = str(ss[tweet_num]["urls"])
@@ -53,9 +55,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
 # 	followers_count = int(ss[tweet_num]["followers_count"])
 
 # 	tweet = Tweets(urls, username, created_at, text, followers_count)
-# 	db.session.add(tweet)
-# 	db.session.commit()
+	# db.session.add(tweet)
+	# db.session.commit()
 
+##-> Exmaple of how to link Tweets to Indicators (one to many)<-
+	## Look at last argument of indicators
 # test_tweet = Tweets('["http://asdf.com"]', 'asdf', '02/02/1111', 'zxcvcxv', '1324')
 # test_tweet2 = Tweets('["http://xcvc.com"]', 'zxcv', '02/02/66666', ';lkq', '754')
 # test_tweet3 = Tweets('["http://cvmq2o.com"]', 'define', '02/02/3333', 'eeeee', '000')
